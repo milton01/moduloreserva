@@ -29,7 +29,7 @@
     if($action == 'none'){
             
             $query = "SELECT    th.id_tipo_habitacion, th.nombre, cpp.value precio, th.descripcion, cpp.key
-                          FROM      decameron_tipo_habitacion th inner join decameron_costo_por_num_personas cpp on
+                          FROM      decameron.decameron_tipo_habitacion th inner join decameron.decameron_costo_por_num_personas cpp on
                                     th.id_tipo_habitacion = cpp.id_tipo_habitacion
                           WHERE     cpp.key = '3 Adultos'
                                     order by 1";
