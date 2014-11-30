@@ -1,0 +1,57 @@
+/*!
+ * Codisola
+ * Copyright(2012
+ */
+
+input[type="text"]{
+	font-size:10px;
+	font-weight:bold;
+	color:#000000;
+	font-family:Arial, Verdana;
+	padding: 2px;
+	border: solid 1px #AAAAAA;
+}
+input[type="password"]{
+	font-size:10px;
+	font-weight:bold;
+	color:#000000;
+	font-family:Arial, Verdana;
+	padding: 2px;
+	border: solid 1px #AAAAAA;
+}
+input[type="submit"]{
+	font-size:12px;
+	font-weight:bold;
+	color:#000000;
+	font-family:Arial, Verdana;
+	padding: 5px;
+	border: solid 1px #AAAAAA;
+}
+textarea{
+	font-size:10px;
+	font-size:10px;
+	font-weight:bold;
+	color:#000000;
+	font-family:Arial, Verdana;
+	padding: 2px;
+	border: solid 1px #AAAAAA;
+}
+select{
+	font-size:10px;
+	font-weight:bold;
+	color:#000000;
+	font-family:Arial, Verdana;
+	padding: 2px;
+	border: solid 1px #AAAAAA;
+}
+#tabla_contenido th{
+	font-size:12px;
+	font-weight:bold;
+	color:#000000;
+	font-family:Arial, Verdana;
+}
+#tabla_contenido tr{
+	font-size:11px;
+	color:#000000;
+	font-family:Arial, Verdana;
+}

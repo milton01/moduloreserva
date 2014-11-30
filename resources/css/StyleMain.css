@@ -1,0 +1,318 @@
+/*!
+ * Codisola
+ * Copyright(2012
+*/
+
+html{
+    width:100%;
+    background: url('../../images/Fondo.jpg') ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    text-align:center;
+    font-family:Arial, Verdana;
+    font-size:12px;
+    color:#BDBDBD;
+    background-image:url('../../images/');
+    background-repeat:repeat;
+}
+
+.input_usuario{ 
+    padding: 5px;
+    border: solid 1px #AAAAAA;
+    font: normal 12px/100% Arial, Verdana;
+    width: 200px;
+}
+.sombra_w{
+    text-shadow: 0 0 0.2em #000000, 0 0 0.2em #000000, 0 0 0.2em #000000;
+}
+
+#wrapper{
+    width:900px;
+    margin:25 auto;
+    text-align:left;	
+}
+
+#header{
+    width:900px;
+    border-style:double;
+    border-color:#BDBDBD;
+    min-height:500px;
+
+}
+.menu{
+    padding-top:5px;
+    width:250px;
+    float:left;
+    min-height:400px;
+}
+#content{
+    margin-left:250px;
+    padding-bottom:10px;
+    min-height:400px;
+}
+#footer {
+    float:left;
+    width:900px;
+    height:20px;
+    text-align:center;
+    color:#000;
+    font-weight:bold;
+    padding-top:15px;
+}
+
+#header-logo {
+    padding-top:5px;
+    padding-bottom:5px;
+}
+#header-bot {
+    padding-bottom:1px;
+    padding-left:10px;
+    padding-right:10px;
+    margin:0 auto;
+    text-align:left;
+    height:30px;
+    clear:both;
+    padding-top:0px;
+    background-image:url('../../images/line.png');
+    background-repeat:no-repeat;
+}
+#header-userbar {
+    line-height:30px;
+    float:left;
+    font-size:12px;
+    font-family:Arial, Verdana, Helvetica;
+    color:#405C72;
+}
+#header-userbar A {
+    color: #029D47;
+}
+#header-logoutbar {
+    line-height:30px;
+    float:left;
+    font-size:12px;
+}
+#header-logoutbar A {
+    color: #029d47;
+}
+#header-logoutbar IMG {
+    width:20px;
+    margin-left:8px;
+    margin-top:4px;
+    cursor:pointer;
+}
+.suite_item{
+    font-family:Arial;
+    font-size:12px;
+    color:#000000;
+    text-decoration:none;
+    padding-left:10px;
+    padding-top:2px;
+    padding-right:2px;
+    padding-bottom:2px;
+    width:218px;
+    float:left;
+    border-bottom:solid 1px #000;
+  
+}
+.suite_item:hover{
+    background-image:url('../../images/back_item.png');
+    background-repeat:repeat;
+
+}
+.suite_item_selected{
+    font-family:Arial;
+    font-size:11px;
+    color:#000000;
+    text-decoration:none;
+    padding-left:10px;
+    padding-top:2px;
+    padding-right:2px;
+    padding-bottom:2px;
+    width:218px;
+    float:left;
+    border-bottom:solid 1px #000;
+    background-image:url('../../images/back_item.png');
+    background-repeat:repeat;
+    text-shadow: 0 0 0.2em #AAAAAA, 0 0 0.2em #AAAAAA, 0 0 0.2em #AAAAAA;
+}
+.suite_title_opened{
+    font-size:14px;
+    font-weight:bold;
+    font-family:Arial;
+    padding-left:10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    float:left;
+    width:220px;
+    height:18px;
+    background-image:url('../../images/suite_title_opened.png');
+    color:#FFFFFF;
+    text-shadow: 0 0 0.2em #000000, 0 0 0.2em #000000, 0 0 0.2em #000000;
+}
+.suite_title_closed{
+    font-size:12px;
+    font-weight:bold;
+    font-family:Arial;
+    padding-left:10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    float:left;
+    width:220px;
+    height:18px;
+    background-image:url('../../images/suite_title_closed.png');
+    color:#FFFFFF;
+    text-shadow: 0 0 0.2em #000000, 0 0 0.2em #000000, 0 0 0.2em #000000;
+}
+.suite_opened{
+    display:block;
+}
+.suite_closed{
+    display:none;
+}
+.suite_image{
+    padding-top:5px;
+    padding-bottom:5px;
+    width:20px;
+    float:right;
+}
+.titulo_reporte{
+    font-size:18px;
+    font-family:Arial;
+    padding-left:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    color:#000000;
+    text-shadow: 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD;
+}
+table {
+    border:0;
+    border-style:dashed;
+    border-spacing:2px;
+}
+.fuente14_negro{
+    font-size:14px;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.fuente14b_negro{
+    font-size:14px;
+    font-weight:bold;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.fuente12_negro{
+    font-size:12px;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.fuente12b_rojo{
+    font-size:12px;
+    font-weight:bold;
+    color:#990000;
+    font-family:Arial, Verdana;
+}
+.fuente12_rojo{
+    font-size:12px;
+    color:#990000;
+    font-family:Arial, Verdana;
+    text-shadow: 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD;
+}
+.fuente12b_negro{
+    font-size:12px;
+    font-weight:bold;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.fuente10_negro{
+    font-size:10px;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.fuente10b_negro{
+    font-size:10px;
+    font-weight:bold;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.fuente09_negro{
+    font-size:9px;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.fuente08_negro{
+    font-size:8px;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.titulo_tabla{
+    font-size:16px;
+    font-family:Arial;
+    color:#000000;
+    text-shadow: 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD;
+}
+.encabezado_tabla{
+    font-size:12px;
+    font-weight:bold;
+    color:#FFFFFF;
+    font-family:Arial, Verdana;
+    background-color:#BDBDBD;
+    height:25px;
+}
+.contenido_tabla{
+    font-size:10px;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.contenido_tabla:hover{
+    background-color:#EEEEEE;
+}
+.totales_tabla td{
+    font-size:11px;
+    font-weight:bold;
+    color:#000000;
+    font-family:Arial, Verdana;
+    background-color:#DDDDDD;
+    border-top:solid 1px #000;
+}
+#tabla_reporte th{
+    font-size:12px;
+    font-weight:bold;
+    color:#FFFFFF;
+    font-family:Arial, Verdana;
+    text-align:center;
+    height:25px;
+    background-image:url('../../images/bg_th.png');
+    background-repeat:repeat;
+}
+#tabla_reporte tr{
+    font-size:10px;
+    color:#000000;
+    font-family:Arial, Verdana;
+}
+.nivel1_sub{
+    font-size:11px;
+    font-weight:bold;
+    color:#000000;
+    font-family:Arial, Verdana;
+    background-color:#DDDDDD;
+    border-bottom:solid 1px #000;
+}
+.accept{
+    font-size:14px;
+    font-weight:bold;
+    color:#006600;
+    font-family:Arial, Verdana;
+    text-shadow: 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD;
+}
+.reject{
+    font-size:14px;
+    font-weight:bold;
+    color:#990000;
+    font-family:Arial, Verdana;
+    text-shadow: 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD, 0 0 0.2em #BDBDBD;
+}
