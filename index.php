@@ -2,7 +2,7 @@
 
  /**
  * @author Codisola
- * @copyright 2012
+ * @copyright 2014
  */
 
 require_once("core/Functions.php");
