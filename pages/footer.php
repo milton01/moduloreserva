@@ -1,7 +1,7 @@
 <?php
 /**
- * @author Codisola
- * @copyright 2012
+ * @author Decameron
+ * @copyright 2014
  */
 ?>
 <div id="footer">

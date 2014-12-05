@@ -1,8 +1,8 @@
 <?php
 
  /**
- * @author Codisola
- * @copyright 2012
+ * @author Decameron
+ * @copyright 2014
  */
 
 ini_set('error_reporting', 0);

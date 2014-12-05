@@ -1,8 +1,8 @@
 <!-- InstanceBegin template="/Templates/codisola.dwt.php" codeOutsideHTMLIsLocked="false" --><!-- InstanceBeginEditable name="head" -->
 <?php
 /**
- * @author Codisola
- * @copyright 2012
+ * @author Decameron
+ * @copyright 2014
  */
 ?>
 <!-- InstanceEndEditable -->
