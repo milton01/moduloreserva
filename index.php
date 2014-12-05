@@ -30,6 +30,7 @@
     $numNin = ($_POST['cant_ninios'] == '') ? "" : $_POST['cant_ninios'];
     $numNinInt = substr($numNin, 0, 1);
     
+    
     $numPersonas = $numAdt.$numNin;
     $numPersonasInt = $numAdtInt + $numNinInt;
     
@@ -40,26 +41,66 @@
         
     } else if ($action == 'reservar') {
         
-        $qBusqueda = "select 	r.id_reservacion Hay_Reservas " .
-                "  from 	decameron.decameron_reservacion r" .
-                " where 	date(r.fecha_desde) between date(str_to_date('" . $fecha_entrada . "', '%Y-%m-%d')) and date(str_to_date('" . $fecha_salida . "', '%Y-%m-%d'))" .
-                "or   	date(r.fecha_hasta) between date(str_to_date('" . $fecha_entrada . "', '%Y-%m-%d')) and date(str_to_date('" . $fecha_salida . "', '%Y-%m-%d'))";
-                
-
-        $datos_Hab = $object->selquery($qBusqueda);
         
-        if (count($datos_Hab) == 0) {
-            session_start();
-            $_SESSION['fecha_entrada']      = $fecha_entrada;
-            $_SESSION['fecha_salida']       = $fecha_salida;
-            $_SESSION['numPersonas']        = $numPersonas;
-            $_SESSION['cantidad_personas']  = $numPersonasInt;
-            $_SESSION['cantidad_adultos']   = $numAdtInt;
-            $_SESSION['cantidad_ninios']    = $numNinInt;
+        
+        $qCapacidadHab = "select h.id_habitacion "
+                . " from decameron.decameron_habitacion h "
+                . " where h.id_habitacion_capacidad in "
+                . " (select hc.id_habitacion_capacidad "
+                . " from decameron.decameron_habitacion_capacidad hc "
+                . " where (select min(hc2.num_personas) "
+                . " from decameron.decameron_habitacion_capacidad hc2 "
+                . " where hc2.num_personas >= ".$numPersonasInt.") = hc.num_personas) "
+                . " and h.estado in (1, 3) order by h.id_habitacion asc";
+        
+        
+        
+        $datos_capacidad = array();
+        $datos_capacidad = $object->selquery($qCapacidadHab);
+        
+        if (count($datos_capacidad) != 0){
             
-            echo "<script>window.location = 'pages/carga_habitaciones.php'</script>";
-            header('Location: pages/carga_habitaciones.php');
+            foreach ($datos_capacidad as $key => $val) {
+                
+                $id_habitacion = $val['id_habitacion'];
+                
+                
+                $qBusqueda = " Select id_reservacion HayReservas "
+                        . " from decameron.decameron_reservacion "
+                        . " where (date('". $fecha_salida ."') between fecha_desde "
+                        . " and fecha_hasta OR fecha_hasta between  date('". $fecha_entrada ."')  "
+                        . " and  date('". $fecha_salida ."') OR  date('". $fecha_entrada ."') between fecha_desde "
+                        . " and fecha_hasta OR fecha_desde between date('". $fecha_entrada ."')  "
+                        . " and date('". $fecha_salida ."')) AND id_habitacion = ".$id_habitacion."";
+
+                $datos_Hab = array();
+                $datos_Hab = $object->selquery($qBusqueda);
+                
+               
+                if (count($datos_Hab) == 0) {
+                    session_start();
+                    $_SESSION['fecha_entrada']      = $fecha_entrada;
+                    $_SESSION['fecha_salida']       = $fecha_salida;
+                    $_SESSION['numPersonas']        = $numPersonas;
+                    $_SESSION['cantidad_personas']  = $numPersonasInt;
+                    $_SESSION['cantidad_adultos']   = $numAdtInt;
+                    $_SESSION['cantidad_ninios']    = $numNinInt;
+                    $_SESSION['id_habitacion']      = $id_habitacion;
+                    
+                    echo "<script>window.location = 'pages/carga_habitaciones.php'</script>";
+                    header('Location: pages/carga_habitaciones.php');
+                    
+                    break;
+                    
+                }
+            }
         }
+        else
+        {
+            echo "<script>alert('No se encontraron habitaciones disponibles.')</script>";
+            
+        }
+        
     }
     ?>
     
@@ -120,7 +161,7 @@
                 if (error == 0) {
                     $('#submit').click();
                 } else {
-                    alert('valor de campos no validos');
+                    alert('Debe de ingresar los campos requeridos!..');
                 }
             });
             
@@ -196,7 +237,6 @@
                 <tr>
                     <td>Adultos</td>
                     <td><select id="cant_adultos"  name="cant_adultos">
-                            <option value="0">Seleccione</option>
                             <option value="1A">1</option>
                             <option value="2A">2</option>
                             <option value="3A">3</option>
@@ -209,7 +249,7 @@
                 <tr>
                     <td>Ni&#241;os/as</td>
                     <td><select id="cant_ninios"  name="cant_ninios">
-                            <option value="0">Seleccione</option>
+                            <option value="0">0</option>
                             <option value="1N">1</option>
                             <option value="2N">2</option>
                             <option value="3N">3</option>
