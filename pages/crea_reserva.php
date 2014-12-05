@@ -18,7 +18,7 @@
     $fecha_hasta = ($_SESSION['fecha_salida'] == '') ? '' : $_SESSION['fecha_salida'];
     $tipo_habitacion = ($_SESSION['tipo_habitacion'] == '') ? '' : $_SESSION['tipo_habitacion'];
     $cantidad_personas = ($_SESSION['cantidad_personas'] == '') ? 0 : $_SESSION['cantidad_personas'];
-    $id_habitacion = 1;
+    $id_habitacion = ($_SESSION['id_habitacion'] == '') ? 0 : $_SESSION['id_habitacion'];
     
     include('header.php');
     include('menu_detReserva.php');
@@ -44,7 +44,7 @@
     $action = ($action == '') ? 'none' : $action;
     
     if ($action == 'none') {
-        $id_habitacion = 1;//$_SESSION['id_habitacion'];
+        $id_habitacion = $_SESSION['id_habitacion'];
         $tipo_habitacion = $_SESSION['tipo_habitacion'];
         $fecha_desde = $_SESSION['fecha_entrada'];
         $fecha_hasta = $_SESSION['fecha_salida'];
@@ -154,23 +154,34 @@
         
         $npersonas = $object->insquery($q_insert);
         
+        $query2 = "select max(id_numero_personas) id_numero_personas from decameron.decameron_numero_personas";
+        $idNumP = $object->selquery($query2);
+        if (count($idNumP) > 0) {
+            foreach ($idNumP as $key => $val) {
+                $id_numero_persona = $val['id_numero_personas'];
+            }
+        }
+        
         
         //tabla reservacion
-        $q_insert = "INSERT INTO decameron.decameron_reservacion "
-                . " (fecha_reservacion, fecha_desde, fecha_hasta, "
-                . " estado, id_habitacion, id_tipo_habitacion, "
-                . " id_tarjeta_credito, id_numero_personas) "
-                . " VALUES "
-                . " (date(now()),'".$fecha_desde."','".$fecha_hasta."', "
-                . " '1','".$id_habitacion."','".$tipo_habitacion."', "
-                . " ".$id_tarjeta_credito.",".$cantidad_personas.")";
+//        $q_insert = "INSERT INTO decameron.decameron_reservacion "
+//                . " (fecha_reservacion, fecha_desde, fecha_hasta, "
+//                . " estado, id_habitacion, id_tipo_habitacion, "
+//                . " id_tarjeta_credito, id_numero_personas, id_people) "
+//                . " VALUES "
+//                . " (CURDATE(), '".$fecha_desde."', '".$fecha_hasta."', "
+//                . " 1,'".$id_habitacion."','".$tipo_habitacion."', "
+//                . " ".$id_tarjeta_credito.",".$cantidad_personas.", "
+//                . " ".$id_people.")";
         
-        $reservacion = $object->insquery($q_insert);
         
-        $con = fopen("COM3", "w");
-	fwrite($con, "D");
-	fclose($con);
+        //echo "<script>alert('".$fecha_desde.",".$fecha_hasta.",".$id_habitacion.",".$tipo_habitacion.",".$id_tarjeta_credito.",".$cantidad_personas.",".$id_people."')</script>";
         
+        $q_people = "INSERT INTO decameron.decameron_reservacion(fecha_reservacion, fecha_desde, fecha_hasta, id_habitacion, id_tipo_habitacion, id_tarjeta_credito, id_numero_personas, id_people) VALUES (CURDATE(), '".$fecha_desde."', '".$fecha_hasta."',".$id_habitacion.",".$tipo_habitacion.",".$id_tarjeta_credito.",".$id_numero_persona.",".$id_people.")";
+        
+       
+        $reservacion = $object->insquery($q_people);
+      
     }
     ?>
     <script>

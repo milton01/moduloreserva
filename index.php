@@ -249,7 +249,7 @@
                 <tr>
                     <td>Ni&#241;os/as</td>
                     <td><select id="cant_ninios"  name="cant_ninios">
-                            <option value="0">0</option>
+                            <option value="0N">0</option>
                             <option value="1N">1</option>
                             <option value="2N">2</option>
                             <option value="3N">3</option>
