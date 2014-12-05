@@ -24,8 +24,27 @@
 	
     if($action == 'actualizar'){
         $estado = $reserva_estado == "2" ? "2" : "3";
-        $update = "UPDATE decameron_reservacion SET estado = ".$estado." WHERE id_reservacion = ".$reserva_id;
-        $object->updquery($update);
+        $update1 = "UPDATE decameron_reservacion SET estado = ".$estado." WHERE id_reservacion = ".$reserva_id;
+        $update2 = "UPDATE decameron_habitacion SET estado = ".$estado." WHERE id_habitacion IN (SELECT id_habitacion FROM decameron_reservacion WHERE id_reservacion = ".$reserva_id.")";
+
+        switch ($estado) {
+            case '2':
+                $f = fopen('/dev/ttyACM0', 'w');
+                fwrite($f, "D");
+                fclose($f);
+                break;
+
+            case '3':
+                $f = fopen('/dev/ttyACM0', 'w');
+                fwrite($f, "L");
+                fclose($f);
+                saveFile();
+                
+                break;
+        }
+        $object->updquery($update1);
+        $object->updquery($update2);
+
         $object->redireccionURL();
     }
 
@@ -42,6 +61,18 @@
 
 
 	$datos_reservas = $object->selquery($query);
+
+
+
+    function saveFile(){
+        $content = array();
+        $content = json_decode(file_get_contents("mod_leds.json"),true);
+        $content[] = array(1,strtotime(date('Y-m-d H:i:s')));
+        $myfile = fopen("../mod_leds.json", "w");
+
+        fwrite($myfile, json_encode($content));
+        fclose($myfile);
+    }
 		
 	?>
 	<script type="text/javascript">
