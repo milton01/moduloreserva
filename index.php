@@ -1,3 +1,7 @@
+<?php
+session_start();
+if (!isset($_SESSION["datos_usuario"])) {
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -14,22 +18,21 @@
   <section class="container">
     <div class="login">
       <h1>Login</h1>
-      <form method="post" action="core/Login.php">
+	  <?php if (isset($_REQUEST["bad"])){
+				echo "<h2>Ingrese usuario / contrase&ntilde;a validos </h2>";
+			}
+	  ?>
+      <form method="post" action="core/Login.php?action=login">
         <p><input type="text" name="login" value="" placeholder="Username or Email" required></p>
         <p><input type="password" name="password" value="" placeholder="Password" required></p>
-        <p class="remember_me">
-          <label>
-            <input type="checkbox" name="remember_me" id="remember_me">
-            Remember me on this computer
-          </label>
-        </p>
         <p class="submit"><input type="submit" name="commit" value="Login"></p>
       </form>
-    </div>
-
-    <div class="login-help">
-      <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p>
     </div>
   </section>
 </body>
 </html>
+<?php
+	} else {
+		header('Location: pages/index.php');
+	}
+?>

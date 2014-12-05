@@ -34,7 +34,7 @@ $object->IsLogued();
 <script type="text/javascript" src="../resources/js/jquery.autocomplete.js"></script>
 <script type="text/javascript" src="../resources/js/main.js"></script>
 
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
 	 $("form").validationEngine('attach');
 		  
@@ -99,7 +99,7 @@ $(document).ready(function(){
 });
 
 function LogOut(){
-	window.location = "index.php?action=logout"
+	window.location = "../core/Login.php?action=logout"
 }
 
 function AppSelected(app_id, suite_id){
@@ -137,6 +137,6 @@ function ChangeSuite(suite_id){
     <div id="header-userbar">Las promociones expuestas en este sitio web aplican s&oacute;lo para El Salvador 
     </div>
     <div id="header-logoutbar">
-    	<img id="BtnSalir" alt="Salir" src="../images/shut_down.png" />
+    	<img id="BtnSalir" alt="Salir" src="../images/shut_down.png" onClick="LogOut();"/>
     </div>
 </div>

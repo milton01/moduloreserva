@@ -1,9 +1,6 @@
 <?php
-
- /**
- * @author Codisola
- * @copyright 2012
- */
+session_start();
+if (isset($_SESSION["datos_usuario"])) {
 ?>
 <style type="text/css" media="all">
 @import "../resources/css/StyleMain.css";
@@ -166,5 +163,8 @@
 	</div>
     <?php
     include('footer.php');
+	} else {
+		header('Location: ../index.php');
+	}
 	?>
 </div>

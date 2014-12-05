@@ -10,43 +10,17 @@ require_once("Connection.php");
 class Functions extends Connection{
 	
 	function login_user($usuario, $clave){
-		$existe_usuario = $this->seldato("SELECT usuario_estado FROM usuarios WHERE usuario_usuario = '".addslashes($usuario)."' OR usuario_email = '".addslashes($usuario)."'");
-    
-		if($existe_usuario == 'Activo'){
-			$query_datos = "SELECT usuario_id, usuario_nombre, usuario_apellido, usuario_email, perfil_id FROM usuarios WHERE (usuario_usuario = '".addslashes($usuario)."' OR usuario_email = '".addslashes($usuario)."') AND usuario_clave = '".addslashes($clave)."' AND usuario_estado = 1";
+			$query_datos = "SELECT username FROM decameron_employees WHERE username = '".addslashes($usuario)."' AND password = '".addslashes($clave)."'";
 			$datos = $this->selquery($query_datos);
 			if(count($datos) > 0){
 				$_SESSION['datos_usuario'] = $datos[0];
 				$_SESSION['datos_usuario']['IP'] = $_SERVER['REMOTE_ADDR'];
 				$_SESSION['fecha_log'] = mktime(date('H'), date('i')+30, date('s'), date('n'), date('j'), date('Y'));
 				$_SESSION['islog'] = true;
-				$this->updquery("UPDATE usuarios SET usuario_contador = 0 WHERE usuario_usuario = '".addslashes($usuario)."' OR usuario_email = '".addslashes($usuario)."'");
-				echo "<script>window.location = 'pages/index.php'</script>";
+				echo "<script>window.location = '../pages/index.php'</script>";
 			}else{
-				$q_contador = "SELECT usuario_contador FROM usuarios WHERE (usuario_usuario = '".addslashes($usuario)."' OR usuario_email = '".addslashes($usuario)."')";
-				$contador = $this->seldato($q_contador);
-				$contador++;
-	
-				if($contador < 3){
-					$this->updquery("UPDATE usuarios SET usuario_contador = (usuario_contador + 1) WHERE usuario_usuario = '".addslashes($usuario)."' OR usuario_email = '".addslashes($usuario)."'");
-					$_SESSION['islog'] = false;
-					echo "<script>alert('Datos incorrectos, por favor intente de nuevo, tiene ".(3 - $contador)." intento(s) mas')</script>";
-				}else{
-					$this->updquery("UPDATE usuarios SET usuario_contador = (usuario_contador + 1), usuario_estado = 3 WHERE usuario_usuario = '".addslashes($usuario)."' OR usuario_email = '".addslashes($usuario)."'");
-					$_SESSION['islog'] = false;
-					echo "<script>alert('Datos incorrectos, ha tenido 3 intentos erroneos, su usuario ha sido bloqueado por seguridad, comuniquese con el administrador')</script>";
+				echo "<script>window.location = '../index.php?bad=0'</script>";
 				}
-			}
-		}elseif($existe_usuario == 'Inactivo'){
-			$_SESSION['islog'] = false;
-			echo "<script>alert('Su usuario no ha sido activado')</script>";
-		}elseif($existe_usuario == 'Bloqueado'){
-			$_SESSION['islog'] = false;
-			echo "<script>alert('Su usuario ha sido bloqueado, por favor comuniquese con el administrador')</script>";
-		}else{
-			$_SESSION['islog'] = false;
-			echo "<script>alert('Usuario y/o clave invalido(s)')</script>";
-		}
 	}
 	
 	function IsLogued(){
@@ -79,7 +53,7 @@ class Functions extends Connection{
 		die();
 	}
 	
-	public function send_email($to, $subject, $from, $from_mask ,$archive, $html){
+	function send_email($to, $subject, $from, $from_mask ,$archive, $html){
 		$boundary1=rand(0,9)."-".rand(10000000000,9999999999)."-".rand(10000000000,9999999999)."=:".rand(10000,99999);
 		$boundary2=rand(0,9)."-".rand(10000000000,9999999999)."-".rand(10000000000,9999999999)."=:".rand(10000,99999);
 				

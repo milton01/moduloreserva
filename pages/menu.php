@@ -13,6 +13,9 @@
                 <a href="administrador_reservas.php" class="suite_item">
                     Administraci&oacute;n de reservas
                 </a>
+				<a href="usuarios.php" class="suite_item">
+                    Usuarios
+                </a>
             </div>
             
         </div>
