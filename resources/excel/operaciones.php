@@ -40,7 +40,7 @@ $result2 =mysql_query($sql2,$IdConexion);
 <td>Nombre Operador</td>
 <td>Fecha Operacion</td>
 <td>Monto Operacion </td>
-<td>Cuenta Codisola</td>
+<td>Cuenta Decameron</td>
 </tr>
 <?php
 while($row = mysql_fetch_array($result)) {

@@ -114,7 +114,7 @@ session_start();
             <tr></tr>
             <tr align="left">
                 <td class="fuente12b_negro" width="10%">Fecha Entrada: </td>
-                <td class="fuente10_negro" width="10%"><?php echo $fecha1 ?></td>
+                <td class="fuente10_negro" width="10%"><?php echo $fecha1?></td>
                 <td class="fuente12b_negro" width="10%">Fecha Salida: </td>
                 <td class="fuente10_negro" width="10%"><?php echo $fecha2 ?></td>
                 <td class="fuente12b_negro" width="10%"># Personas: </td>

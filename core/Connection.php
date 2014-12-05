@@ -1,8 +1,8 @@
 <?php
 
  /**
- * @author Codisola
- * @copyright 2012
+ * @author 
+ * @copyright 
  */
 
 class Connection extends MySQLi{

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 30, 2014 at 11:16 PM
+-- Generation Time: Dec 04, 2014 at 08:08 PM
 -- Server version: 5.6.21-log
 -- PHP Version: 5.6.0
 
@@ -106,8 +106,9 @@ INSERT INTO `decameron_costo_por_fecha` (`id_rango_fechas`, `fecha_desde`, `fech
 --
 
 CREATE TABLE IF NOT EXISTS `decameron_costo_por_num_personas` (
-  `key` varchar(50) NOT NULL,
+  `vkey` varchar(50) NOT NULL,
   `value` decimal(10,2) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
   `id_tipo_habitacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -115,35 +116,37 @@ CREATE TABLE IF NOT EXISTS `decameron_costo_por_num_personas` (
 -- Dumping data for table `decameron_costo_por_num_personas`
 --
 
-INSERT INTO `decameron_costo_por_num_personas` (`key`, `value`, `id_tipo_habitacion`) VALUES
-('1 Adulto', '1.00', 1),
-('1 Adulto', '1.05', 2),
-('1 Adulto 1 niño', '2.25', 1),
-('1 Adulto 1 niño', '2.30', 2),
-('1 Adulto 2 niños', '2.50', 1),
-('1 Adulto 2 niños', '2.55', 2),
-('1 Adulto 3 niños', '3.25', 1),
-('1 Adulto 3 niños', '3.35', 2),
-('1 Adulto 4 niños', '3.50', 1),
-('1 Adulto 4 niños', '3.60', 2),
-('2 Adultos', '1.50', 1),
-('2 Adultos', '1.60', 2),
-('2 Adultos 1 niño', '2.25', 1),
-('2 Adultos 1 niño', '2.35', 2),
-('2 Adultos 2 niños', '2.50', 1),
-('2 Adultos 2 niños', '2.60', 2),
-('2 Adultos 3 niños', '3.00', 1),
-('2 Adultos 3 niños', '3.10', 2),
-('3 Adultos', '2.10', 1),
-('3 Adultos', '2.25', 2),
-('3 Adultos 1 niño', '2.75', 1),
-('3 Adultos 1 niño', '2.90', 2),
-('3 Adultos 2 niños', '3.25', 1),
-('3 Adultos 2 niños', '3.40', 2),
-('4 Adultos', '2.65', 1),
-('4 Adultos', '2.85', 2),
-('4 Adultos 1 niño', '3.75', 1),
-('4 Adultos 1 niño', '3.90', 2);
+INSERT INTO `decameron_costo_por_num_personas` (`vkey`, `value`, `description`, `id_tipo_habitacion`) VALUES
+('1A', '1.00', '1 Adulto', 1),
+('1A', '1.05', '1 Adulto', 2),
+('1A1N', '2.25', '1 Adulto 1 niño', 1),
+('1A1N', '2.30', '1 Adulto 1 niño', 2),
+('1A2N', '2.50', '1 Adulto 2 niños', 1),
+('1A2N', '2.55', '1 Adulto 2 niños', 2),
+('1A3N', '3.25', '1 Adulto 3 niños', 1),
+('1A3N', '3.35', '1 Adulto 3 niños', 2),
+('1A4N', '3.50', '1 Adulto 4 niños', 1),
+('1A4N', '3.60', '1 Adulto 4 niños', 2),
+('2A', '1.50', '2 Adultos', 1),
+('2A', '1.60', '2 Adultos', 2),
+('2A1N', '2.25', '2 Adultos 1 niño', 1),
+('2A1N', '2.35', '2 Adultos 1 niño', 2),
+('2A2N', '2.50', '2 Adultos 2 niños', 1),
+('2A2N', '2.60', '2 Adultos 2 niños', 2),
+('2A3N', '3.00', '2 Adultos 3 niños', 1),
+('2A3N', '3.10', '2 Adultos 3 niños', 2),
+('3A', '2.10', '3 Adultos', 1),
+('3A', '2.25', '3 Adultos', 2),
+('3A1N', '2.75', '3 Adultos 1 niño', 1),
+('3A1N', '2.90', '3 Adultos 1 niño', 2),
+('3A2N', '3.25', '3 Adultos 2 niños', 1),
+('3A2N', '3.40', '3 Adultos 2 niños', 2),
+('4A', '2.65', '4 Adultos', 1),
+('4A', '2.85', '4 Adultos', 2),
+('4A1N', '3.75', '4 Adultos 1 niño', 1),
+('4A1N', '3.90', '4 Adultos 1 niño', 2),
+('5A', '4.00', '5 Adultos', 1),
+('5A', '4.10', '5 Adultos', 2);
 
 -- --------------------------------------------------------
 
@@ -308,19 +311,6 @@ INSERT INTO `decameron_habitacion_capacidad` (`id_habitacion_capacidad`, `num_pe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `decameron_habitacion_reservacion`
---
-
-CREATE TABLE IF NOT EXISTS `decameron_habitacion_reservacion` (
-  `fecha` date NOT NULL,
-  `descripcion` varchar(500) NOT NULL,
-  `id_habitacion` int(11) NOT NULL,
-  `id_reservacion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `decameron_inventory`
 --
 
@@ -354,6 +344,7 @@ CREATE TABLE IF NOT EXISTS `decameron_items` (
   `allow_alt_description` tinyint(1) NOT NULL,
   `is_serialized` tinyint(1) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
+  `id_reservacion` int(11) DEFAULT NULL,
   `custom1` varchar(25) NOT NULL,
   `custom2` varchar(25) NOT NULL,
   `custom3` varchar(25) NOT NULL,
@@ -577,19 +568,6 @@ INSERT INTO `decameron_permissions` (`module_id`, `person_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `decameron_producto_reservacion`
---
-
-CREATE TABLE IF NOT EXISTS `decameron_producto_reservacion` (
-  `estado` int(11) NOT NULL DEFAULT '1',
-  `descripcion` varchar(500) DEFAULT NULL,
-  `id_reservacion` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `decameron_receivings`
 --
 
@@ -629,20 +607,22 @@ CREATE TABLE IF NOT EXISTS `decameron_receivings_items` (
 
 CREATE TABLE IF NOT EXISTS `decameron_reservacion` (
 `id_reservacion` int(11) NOT NULL,
+  `fecha_reservacion` date NOT NULL,
   `fecha_desde` date NOT NULL,
   `fecha_hasta` date NOT NULL,
   `estado` int(11) NOT NULL DEFAULT '1',
+  `id_habitacion` int(11) NOT NULL,
   `id_tipo_habitacion` int(11) NOT NULL,
   `id_tarjeta_credito` int(11) NOT NULL,
   `id_numero_personas` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `decameron_reservacion`
 --
 
-INSERT INTO `decameron_reservacion` (`id_reservacion`, `fecha_desde`, `fecha_hasta`, `estado`, `id_tipo_habitacion`, `id_tarjeta_credito`, `id_numero_personas`) VALUES
-(1, '2014-12-01', '2014-12-05', 1, 2, 1, 1);
+INSERT INTO `decameron_reservacion` (`id_reservacion`, `fecha_reservacion`, `fecha_desde`, `fecha_hasta`, `estado`, `id_habitacion`, `id_tipo_habitacion`, `id_tarjeta_credito`, `id_numero_personas`) VALUES
+(2, '2014-12-02', '2014-12-08', '2014-12-12', 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -925,7 +905,7 @@ ALTER TABLE `decameron_costo_por_fecha`
 -- Indexes for table `decameron_costo_por_num_personas`
 --
 ALTER TABLE `decameron_costo_por_num_personas`
- ADD PRIMARY KEY (`key`,`id_tipo_habitacion`), ADD KEY `id_tipo_habitacion` (`id_tipo_habitacion`);
+ ADD PRIMARY KEY (`vkey`,`id_tipo_habitacion`), ADD KEY `id_tipo_habitacion` (`id_tipo_habitacion`);
 
 --
 -- Indexes for table `decameron_customers`
@@ -976,12 +956,6 @@ ALTER TABLE `decameron_habitacion_capacidad`
  ADD PRIMARY KEY (`id_habitacion_capacidad`);
 
 --
--- Indexes for table `decameron_habitacion_reservacion`
---
-ALTER TABLE `decameron_habitacion_reservacion`
- ADD PRIMARY KEY (`fecha`,`id_habitacion`,`id_reservacion`);
-
---
 -- Indexes for table `decameron_inventory`
 --
 ALTER TABLE `decameron_inventory`
@@ -991,7 +965,7 @@ ALTER TABLE `decameron_inventory`
 -- Indexes for table `decameron_items`
 --
 ALTER TABLE `decameron_items`
- ADD PRIMARY KEY (`item_id`), ADD UNIQUE KEY `item_number` (`item_number`), ADD KEY `decameron_items_ibfk_1` (`supplier_id`);
+ ADD PRIMARY KEY (`item_id`), ADD UNIQUE KEY `item_number` (`item_number`), ADD KEY `decameron_items_ibfk_1` (`supplier_id`), ADD KEY `id_reservacion` (`id_reservacion`);
 
 --
 -- Indexes for table `decameron_items_taxes`
@@ -1048,12 +1022,6 @@ ALTER TABLE `decameron_permissions`
  ADD PRIMARY KEY (`module_id`,`person_id`), ADD KEY `person_id` (`person_id`);
 
 --
--- Indexes for table `decameron_producto_reservacion`
---
-ALTER TABLE `decameron_producto_reservacion`
- ADD PRIMARY KEY (`id_reservacion`,`item_id`), ADD KEY `id_reservacion` (`id_reservacion`), ADD KEY `item_id` (`item_id`);
-
---
 -- Indexes for table `decameron_receivings`
 --
 ALTER TABLE `decameron_receivings`
@@ -1069,7 +1037,7 @@ ALTER TABLE `decameron_receivings_items`
 -- Indexes for table `decameron_reservacion`
 --
 ALTER TABLE `decameron_reservacion`
- ADD PRIMARY KEY (`id_reservacion`), ADD KEY `id_tipo_habitacion` (`id_tipo_habitacion`), ADD KEY `id_tarjeta_credito` (`id_tarjeta_credito`), ADD KEY `id_numero_personas` (`id_numero_personas`);
+ ADD PRIMARY KEY (`id_reservacion`), ADD KEY `id_tipo_habitacion` (`id_tipo_habitacion`), ADD KEY `id_tarjeta_credito` (`id_tarjeta_credito`), ADD KEY `id_numero_personas` (`id_numero_personas`), ADD KEY `id_habitacion` (`id_habitacion`);
 
 --
 -- Indexes for table `decameron_reservacion_detalle`
@@ -1239,7 +1207,7 @@ MODIFY `receiving_id` int(10) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `decameron_reservacion`
 --
 ALTER TABLE `decameron_reservacion`
-MODIFY `id_reservacion` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id_reservacion` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `decameron_sales`
 --
@@ -1317,7 +1285,8 @@ ADD CONSTRAINT `decameron_inventory_ibfk_2` FOREIGN KEY (`trans_user`) REFERENCE
 -- Constraints for table `decameron_items`
 --
 ALTER TABLE `decameron_items`
-ADD CONSTRAINT `decameron_items_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `decameron_suppliers` (`person_id`);
+ADD CONSTRAINT `decameron_items_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `decameron_suppliers` (`person_id`),
+ADD CONSTRAINT `decameron_items_ibfk_2` FOREIGN KEY (`id_reservacion`) REFERENCES `decameron_reservacion` (`id_reservacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `decameron_items_taxes`
@@ -1360,13 +1329,6 @@ ADD CONSTRAINT `decameron_permissions_ibfk_1` FOREIGN KEY (`person_id`) REFERENC
 ADD CONSTRAINT `decameron_permissions_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `decameron_modules` (`module_id`);
 
 --
--- Constraints for table `decameron_producto_reservacion`
---
-ALTER TABLE `decameron_producto_reservacion`
-ADD CONSTRAINT `decameron_producto_reservacion_ibfk_1` FOREIGN KEY (`id_reservacion`) REFERENCES `decameron_reservacion` (`id_reservacion`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `decameron_producto_reservacion_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `decameron_receivings`
 --
 ALTER TABLE `decameron_receivings`
@@ -1386,7 +1348,8 @@ ADD CONSTRAINT `decameron_receivings_items_ibfk_2` FOREIGN KEY (`receiving_id`) 
 ALTER TABLE `decameron_reservacion`
 ADD CONSTRAINT `decameron_reservacion_ibfk_1` FOREIGN KEY (`id_tipo_habitacion`) REFERENCES `decameron_tipo_habitacion` (`id_tipo_habitacion`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `decameron_reservacion_ibfk_2` FOREIGN KEY (`id_tarjeta_credito`) REFERENCES `decameron_tarjeta_credito` (`id_tarjeta_credito`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `decameron_reservacion_ibfk_3` FOREIGN KEY (`id_numero_personas`) REFERENCES `decameron_numero_personas` (`id_numero_personas`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `decameron_reservacion_ibfk_3` FOREIGN KEY (`id_numero_personas`) REFERENCES `decameron_numero_personas` (`id_numero_personas`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `decameron_reservacion_ibfk_4` FOREIGN KEY (`id_habitacion`) REFERENCES `decameron_habitacion` (`id_habitacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `decameron_reservacion_detalle`

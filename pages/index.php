@@ -1,8 +1,8 @@
 <?php
 
  /**
- * @author Codisola
- * @copyright 2012
+ * @author Decameron
+ * @copyright 2014
  */
 ?>
 <style type="text/css" media="all">
