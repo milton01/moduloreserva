@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Forma de correr
+ * php verificador.php
+ */
+
 $maxTime = 10;
 
 while (true) {
