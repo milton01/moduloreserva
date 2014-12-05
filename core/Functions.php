@@ -9,7 +9,7 @@ require_once("Connection.php");
 
 class Functions extends Connection{
 	
-	public function login_user($usuario, $clave){
+	function login_user($usuario, $clave){
 		$existe_usuario = $this->seldato("SELECT usuario_estado FROM usuarios WHERE usuario_usuario = '".addslashes($usuario)."' OR usuario_email = '".addslashes($usuario)."'");
     
 		if($existe_usuario == 'Activo'){
