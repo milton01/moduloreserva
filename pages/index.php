@@ -10,10 +10,9 @@
 </style>
 <div id="wrapper">
 	<?php
-	include('header.php');
+	include('header_sistema.php');
         include('menu.php');
 	$_SESSION['app_id'] = 1;
-	include('log.php');
     ?>
     <div id="content">
         Contenido

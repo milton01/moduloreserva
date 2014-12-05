@@ -9,7 +9,7 @@ class Connection extends MySQLi{
     private $dbhost = 'localhost';	
 	private $dbuser = 'root';
 	private $dbpass = '';
-	private $dbname = 'codisola2';
+	private $dbname = 'decameron';
     //private $dbport = '8080';
     
     public function __construct(){

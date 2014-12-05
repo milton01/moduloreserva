@@ -1,8 +1,8 @@
 <?php
 
  /**
- * @author Decameron
- * @copyright 2014
+ * @author Codisola
+ * @copyright 2012
  */
 
 ini_set('error_reporting', 0);
@@ -10,8 +10,14 @@ ini_set('error_reporting', 0);
 require_once("../core/Functions.php");
 $object = new Functions();
 
+if(isset($_GET['action']) && $_GET['action'] == 'logout'){
+	$object->LogOut();
+}
+
+$object->IsLogued();
+
 ?>
-<title>.:: DECAMERON ::.</title>
+<title>.:: CODISOLA ::.</title>
 <link rel="stylesheet" type="text/css" href="../resources/css/StyleMain.css"/>
 <link rel="stylesheet" type="text/css" href="../resources/css/StylePage.css"/>
 <link type="text/css" rel="stylesheet" href="../resources/css/jquery-ui.css" />
@@ -30,8 +36,10 @@ $object = new Functions();
 
 <script>
 $(document).ready(function(){
-	 $("form").validationEngine('attach');
-		  
+	 $("#frmSocio").validationEngine('attach');
+	 $("#formSolicitudPrestamo").validationEngine('attach');	 
+	  $("#frmSolicitudAhorro").validationEngine('attach');	 
+	  $("#datos_usuario").validationEngine('attach');		  
 	$('[id*=fecha]').datepicker({
 		dateFormat: 'yy-mm-dd',
 		showButtonPanel: true,
@@ -69,13 +77,14 @@ $(document).ready(function(){
 	$("#socio_dui").mask("99999999-9");
 	$("#socio_nit").mask("9999-999999-999-9");
 	$("#socio_isss").mask("999999999");
-	$("[id*=tel]").mask("9999-9999");
+	$("#socio_tel_casa").mask("(999) 9999-9999");
+	$("#socio_tel_celular").mask("(999) 9999-9999");
+	$("#socio_tel_oficina").mask("(999) 9999-9999");
 	
+	$("[id*=tel]").mask("9999-9999");
 	$("select[id*=doc]").change(function(){
 		var obj=$(this).parent().parent().find("[id*='numero']");
-		obj.val('');
-		var mysel=$(this);
-		switch(mysel.val() ){
+		switch(){
 			case 'DUI':
 				obj.mask("99999999-9");
 			break;
@@ -86,7 +95,7 @@ $(document).ready(function(){
 				obj.mask("99999999-9");
 			break;
 		}
-		
+		$(this).parent().parent().find("[id*='numero']")
 	});
 
 	keyAlloy();
@@ -128,9 +137,9 @@ function ChangeSuite(suite_id){
     </a>
 </div>
 <div id="header-bot">
-    <div id="header-userbar">Las promociones expuestas en este sitio web aplican s&oacute;lo para El Salvador 
+    <div id="header-userbar">Usuario: <b><?php echo strtoupper($_SESSION['datos_usuario']['usuario_nombre'].' '.$_SESSION['datos_usuario']['usuario_apellido'])?></b>&nbsp;&nbsp;&nbsp;Conectado desde:<b><?php echo $_SESSION['datos_usuario']['IP']?></b> 
     </div>
     <div id="header-logoutbar">
-    	<img id="BtnSalir" alt="Salir" src="../images/shut_down.png" />
+    	<img id="BtnSalir" alt="Salir" src="../images/shut_down.png" onClick="LogOut()"/>
     </div>
 </div>

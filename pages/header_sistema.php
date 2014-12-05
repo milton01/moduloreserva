@@ -10,6 +10,12 @@ ini_set('error_reporting', 0);
 require_once("../core/Functions.php");
 $object = new Functions();
 
+if(isset($_GET['action']) && $_GET['action'] == 'logout'){
+	$object->LogOut();
+}
+
+$object->IsLogued();
+
 ?>
 <title>.:: DECAMERON ::.</title>
 <link rel="stylesheet" type="text/css" href="../resources/css/StyleMain.css"/>
