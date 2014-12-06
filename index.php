@@ -23,7 +23,7 @@
     extract($_POST);
     
     $action = ($action == '') ? 'none' : $action;
-    
+    //str_replace("world","Peter","Hello world!");
     $numAdt = ($_POST['cant_adultos'] == '') ? "" : $_POST['cant_adultos'];
     $numAdtInt = substr($numAdt, 0, 1);
     
@@ -96,7 +96,11 @@
                 var cantidad = 0;
                 var max = 5;
                 $('[id*=cant]').each(function() {
-                    cantidad = cantidad + parseInt($(this).val());
+                    var valor='';
+                    valor=$(this).val();
+                    valor=valor.replace('N','');
+                    valor=valor.replace('A','');
+                    cantidad = cantidad + parseInt(valor);
                 });
                 if (parseInt(cantidad) > max || parseInt(cantidad) < 1) {
                     $(this).validationEngine('showPrompt', 'La cantidad maxima de personas para realizar su reservacion es 5', 'error', true)
@@ -116,7 +120,7 @@
 
             $('#ingresa').click(function() {
                 var form = document.forms["frmBusqueda"];
-                
+                $('[id*=cant]').change();
                 if (error == 0) {
                     $('#submit').click();
                 } else {
