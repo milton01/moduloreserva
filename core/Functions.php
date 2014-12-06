@@ -10,7 +10,7 @@ require_once("Connection.php");
 class Functions extends Connection{
 	
 	function login_user($usuario, $clave){
-			$query_datos = "SELECT username FROM decameron_employees WHERE username = '".addslashes($usuario)."' AND password = '".addslashes($clave)."'";
+			$query_datos = "SELECT username FROM decameron_employees WHERE username = '".addslashes($usuario)."' AND password = '".md5($clave)."'";
 			$datos = $this->selquery($query_datos);
 			if(count($datos) > 0){
 				$_SESSION['datos_usuario'] = $datos[0];
@@ -19,7 +19,7 @@ class Functions extends Connection{
 				$_SESSION['islog'] = true;
 				echo "<script>window.location = '../pages/index.php'</script>";
 			}else{
-				echo "<script>window.location = '../index.php?bad=0'</script>";
+				echo "<script>window.location = '../login.php?bad=0'</script>";
 				}
 	}
 	

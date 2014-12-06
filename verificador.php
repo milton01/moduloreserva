@@ -1,4 +1,6 @@
 <?php
+include("core/Functions.php");
+include('class.leds.php');
 
 /**
  * Forma de correr
@@ -6,6 +8,9 @@
  */
 
 $maxTime = 10;
+
+$leds = new Leds();
+$object = new Functions();
 
 while (true) {
 	$items = $newItems = array();
@@ -17,7 +22,8 @@ while (true) {
 			$diff = strtotime(date('Y-m-d H:i:s')) - $item[1];
 			print($diff);
 			if($diff > $maxTime){
-				apagarLed($item[0]);
+				$code = $leds->getRoom($item[0]);
+				if($code!="") apagarLed($code);
 			}else{
 				$newItems[] = array((int)$item[0],(int)$item[1]);
 			}
@@ -29,10 +35,12 @@ while (true) {
 }
 
 
-function apagarLed($id){
+function apagarLed($code){
 	$f = fopen('/dev/ttyACM0', 'w');
-	fwrite($f, "O");
+	fwrite($f, $code);
 	fclose($f);
+	$upd = "UPDATE decameron_habitacion SET estado = 1 WHERE id_habitacion";
+	$object->updquery($upd);
 }
 
 function guardarData($data){

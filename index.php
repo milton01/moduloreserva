@@ -147,8 +147,10 @@
     <div id="header-bot">
         <div id="header-userbar">Las promociones expuestas en este sitio web aplican s&oacute;lo para El Salvador 
         </div>
-        <div id="header-logoutbar">
-            <img id="BtnSalir" alt="Salir" src="images/shut_down.png" />
+        <div id="header-logoutbar" style="width:50px;">
+            <a href="login.php">
+                <img id="BtnSalir" alt="Salir" style="width:50px;height:20px;" src="images/ingresar.png" /> 
+            </a>
         </div>
     </div>
     <div class="menu">

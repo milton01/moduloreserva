@@ -1,5 +1,7 @@
 <?php
 session_start();
+include('../class.leds.php');
+
 if (isset($_SESSION["datos_usuario"])) {
 ?>
 <style type="text/css" media="all">
@@ -20,29 +22,51 @@ if (isset($_SESSION["datos_usuario"])) {
 	//echo $action.'<br>';
 	
     if($action == 'actualizar'){
+        
         $estado = $reserva_estado == "2" ? "2" : "3";
+
         $update1 = "UPDATE decameron_reservacion SET estado = ".$estado." WHERE id_reservacion = ".$reserva_id;
         $update2 = "UPDATE decameron_habitacion SET estado = ".$estado." WHERE id_habitacion IN (SELECT id_habitacion FROM decameron_reservacion WHERE id_reservacion = ".$reserva_id.")";
+        $selHab = "SELECT id_habitacion FROM decameron_reservacion WHERE id_reservacion = ".$reserva_id;
+        
+        $hab = array(array("id_habitacion"=>1)); //$object->selquery($selHab);
 
-        switch ($estado) {
-            case '2':
-                $f = fopen('/dev/ttyACM0', 'w');
-                fwrite($f, "D");
-                fclose($f);
-                break;
+        
+        if(count($hab)>0){
+            
+            $idH = $hab[0]["id_habitacion"];
+            
+            $ledsO = new Leds();
+            $param = "";
+            switch ($estado) {
+                case '2': $param = $ledsO->getRoom($idH,1); break;
+                case '3':  
+                    $param = $ledsO->getRoom($idH,2);
+                    $content = array();
+                    $content = json_decode(file_get_contents("../mod_leds.json"),true);
 
-            case '3':
-                $f = fopen('/dev/ttyACM0', 'w');
-                fwrite($f, "L");
-                fclose($f);
-                saveFile();
-                
+                    $content[] = array($idH,strtotime(date('Y-m-d H:i:s')));
+                    $myfile = fopen("../mod_leds.json", "w");
+
+                    fwrite($myfile, json_encode($content));
+                    fclose($myfile);
                 break;
+            }
+            echo "999".$param;exit();
+
+            $f = fopen('/dev/ttyACM0', 'w');
+            
+            if($param!="")
+                fwrite($f, $param);
+
+            fclose($f);
         }
-        $object->updquery($update1);
-        $object->updquery($update2);
 
-        $object->redireccionURL();
+        $obj = new Functions();
+        $obj->updquery($update1);
+        $obj->updquery($update2);
+
+        $obj->redireccionURL();
     }
 
 
@@ -61,14 +85,10 @@ if (isset($_SESSION["datos_usuario"])) {
 
 
 
-    function saveFile(){
-        $content = array();
-        $content = json_decode(file_get_contents("mod_leds.json"),true);
-        $content[] = array(1,strtotime(date('Y-m-d H:i:s')));
-        $myfile = fopen("../mod_leds.json", "w");
-
-        fwrite($myfile, json_encode($content));
-        fclose($myfile);
+    function saveFileJSON($idL){
+        echo "--".$idL;
+        exit();
+        
     }
 		
 	?>
@@ -164,7 +184,7 @@ if (isset($_SESSION["datos_usuario"])) {
     <?php
     include('footer.php');
 	} else {
-		header('Location: ../index.php');
+		header('Location: ../login.php');
 	}
 	?>
 </div>

@@ -131,6 +131,6 @@ function ChangeSuite(suite_id){
     <div id="header-userbar">Las promociones expuestas en este sitio web aplican s&oacute;lo para El Salvador 
     </div>
     <div id="header-logoutbar">
-    	<img id="BtnSalir" alt="Salir" src="../images/shut_down.png" />
+    	<a href="logout.php"><img id="BtnSalir" alt="Salir" src="../images/shut_down.png" /></a>
     </div>
 </div>
